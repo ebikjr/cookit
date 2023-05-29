@@ -20,32 +20,7 @@ export default async function handler(req: NextRequest) {
     const items = body.items as string[];
 
     const formattedItems = items.map((i) => `- ${i}`).join("\r\n");
-
-    if (!token) {
-      return new Response("No token was provided", { status: 400 });
-    } else {
-      const stream = await OpenAIStream(token, {
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "user",
-            content: prompt(formattedItems),
-          },
-          {
-            role: "system",
-            content: systemConfig,
-          },
-        ],
-        temperature: 0.4,
-        stream: true,
-      });
-
-      return new Response(stream);
-    }
-  } catch (err: any) {
-    console.log({ err });
-    return new Response(err, { status: 500 });
-  }
+}
 }
 
 export const config = {
