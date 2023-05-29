@@ -20,7 +20,12 @@ export default async function handler(req: NextRequest) {
     const items = body.items as string[];
 
     const formattedItems = items.map((i) => `- ${i}`).join("\r\n");
-}
+
+   
+  } catch (err: any) {
+    console.log({ err });
+    return new Response(err, { status: 500 });
+  }
 }
 
 export const config = {
