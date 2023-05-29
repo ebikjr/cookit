@@ -54,10 +54,9 @@ const Home: NextPage = () => {
 
   const recipeMutation = useMutation({
     mutationFn: (items: string[]) =>
-      fetch("/api/response", {
+      fetch("/api/openai", {
         method: "POST",
-        headers: { "Content-Type": "application/json" 
-      },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
       }),
     onSuccess: async (data) => {
