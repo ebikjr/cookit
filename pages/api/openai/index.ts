@@ -13,7 +13,7 @@ What can I make?`;
 
 export default async function handler(req: NextRequest) {
   try {
-    const token = req.cookies.get("OPENAPI_TOKEN")?.value;
+    const token = req.cookies.get("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")?.value;
 
     const body = await req.json();
 
