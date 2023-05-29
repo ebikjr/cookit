@@ -168,7 +168,7 @@ export default function Nav() {
               >
                 Your Open AI API Key
               </Label>
-              <Input id="token" {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("token")} className="col-span-3" />
+              <Input id="token" {...register("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")} className="col-span-3" />
               <span className="block mt-2 min-h-[20px] text-sm font-light text-rose-600">
                 {errors.token?.message}
               </span>
