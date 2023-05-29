@@ -9,7 +9,7 @@ export default async function handler(
     const body = request.body;
 
     if (body.token) {
-      setCookie(response, "OPENAPI_TOKEN", body.token, {
+      setCookie(response, "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", body.token, {
         path: "/",
         maxAge: 2592000,
         httpOnly: true,
