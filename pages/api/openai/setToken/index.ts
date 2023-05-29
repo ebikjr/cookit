@@ -1,20 +1,24 @@
-import { OpenAIApi, Configuration } from "openai";
+import { setCookie } from "@/lib/cookie";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
+  if (request.method === "POST") {
+    const body = request.body;
 
-const openai = new OpenAIApi(configuration);
-
-export default async (req, res) => {
-  if (req.body.prompt !== undefined) {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `${req.body.prompt}`,
-    });
-
-    res.status(200).json({ text: `${completion.data.choices[0].text}` });
+    if (body.token) {
+      setCookie(response, "OPENAPI_TOKEN", body.token, {
+        path: "/",
+        maxAge: 2592000,
+        httpOnly: true,
+      });
+      response.end();
+    } else {
+      response.end().status(400);
+    }
   } else {
-    res.status(400).json({ text: "No prompt provided." });
+    response.end().status(400);
   }
-};
+}

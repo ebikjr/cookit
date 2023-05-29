@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
+import { OpenAI } from "openai-streams";
 import { OpenAIStream } from "@/lib/OpenAiStream";
 
 const systemConfig = `You are an experienced chef that wants to help people easily cook from their homes. You explain recipes with ease and without complicating them much so anyone can cook. You always format your recipes using Markdown so the users can read them easily.`;
@@ -12,16 +12,14 @@ ${listedItems}
 What can I make?`;
 
 export default async function handler(req: NextRequest) {
-  setResponse("");
-  console.log("Getting response from OpenAI...");
-  setIsLoading(true);
-  const response = await fetch("/api/openai", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ prompt: prompt }),
-  });
+  try {
+    const token = req.cookies.get("OPENAPI_TOKEN")?.value;
+
+    const body = await req.json();
+
+    const items = body.items as string[];
+
+    const formattedItems = items.map((i) => `- ${i}`).join("\r\n");
 
     if (!token) {
       return new Response("No token was provided", { status: 400 });
