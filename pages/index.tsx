@@ -36,7 +36,7 @@ type FormState = {
 };
 
 const Home: NextPage = () => {
-  const [tokenSaved] = useLocalStorage("token_saved", false);
+  const [tokenSaved] = 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;
 
   const [text, setText] = useState("");
   const {
