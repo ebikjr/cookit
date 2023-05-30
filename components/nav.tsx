@@ -76,7 +76,7 @@ export default function Nav() {
       category: "user_interaction",
       label: "User sets OpenAI API key",
     });
-    tokenMutation.mutate(data?.token ?? "");
+    tokenMutation.mutate(data?.token ?? "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");
     setOpen(false);
   };
 
